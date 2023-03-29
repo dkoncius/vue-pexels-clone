@@ -4,7 +4,7 @@
   box-sizing: border-box;
   font-family: roboto;
   user-select: none;
-  cursor: url('arrow-pointer-solid.svg'), default;
+  cursor: url('./assets/arrow-pointer-solid.svg'), default;
 }
 
 body {
@@ -24,16 +24,10 @@ button {
   transition: 0.3s;
 }
 
-button:hover {
-  background: linear-gradient(300deg, white, lightgray);
-  color: grey;
-}
-
 button.selected {
   background: linear-gradient(300deg, white, lightgray);
   color: grey;
   animation: button-animation 0.3s ease-in-out;
-  animation-play-state: paused;
 }
 
 

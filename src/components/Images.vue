@@ -1,5 +1,5 @@
 <script setup>
-import { ref, toRaw } from 'vue';
+import { store } from './StoreFavourites';
 
 defineProps({
   data: {
@@ -8,61 +8,52 @@ defineProps({
 })
 
 const getPhoto = (photo) => {
-    const limit = 15
-    let title = ''
-    let url = ''
+  const limit = 15;
+  let title = '';
+  let url = '';
 
-    // If no alt text
-    if(photo.alt){
-    title = photo.alt
-    } else {
-    url = photo.url.slice(29, photo.url.length).split("-").join(" ")
-    title = url
-    }
+  // If no alt text
+  if (photo.alt) {
+    title = photo.alt;
+  } else {
+    url = photo.url.slice(29, photo.url.length).split('-').join(' ');
+    title = url;
+  }
 
-    // If title to long
-    if(title.length > limit) title = title.substring(0, limit) + "..."
+  // If title too long
+  if (title.length > limit) {
+    title = title.substring(0, limit) + '...';
+  }
 
-    return {
-        medium: photo.src.medium,
-        large: photo.src.large2x,
-        splice: photo.url.slice(29, photo.url.length).split("-").join(" "),
-        title: title,
-        id: photo.id
-    }
+  return {
+    medium: photo.src.medium,
+    large: photo.src.large2x,
+    splice: photo.url.slice(29, photo.url.length).split('-').join(' '),
+    title: title,
+    id: photo.id
+  };
 }
 
-// Add to favourites
-let favourites = ref([])
-
 const addToFavourites = (id) => {
-  if(favourites.value.includes(id)){
-    favourites.value.splice(favourites.value.indexOf(id), 1)
-  } else {
-    favourites.value.push(id);
-  }
-  console.log(favourites.value)
+  store.addToFavourites(id);
 }
 </script>
 
 <template>
-    <div class="photos" >
-         <div class="photo" v-for="photo in data" :set="photo = getPhoto(photo)" :id="photo.id" :key="photo.id">
-        <!-- Images with fallback -->
-        <img v-if="photo.large" :src="photo.large" :alt="photo.title" />
-        <img v-else="photo.medium" :src="photo.medium" :alt="photo.title" />
-        <div class="photo_content">
-          <h2>{{photo.title}}</h2>
-          <hr>
-          <button 
-          @click="addToFavourites(photo.id)"
-          :class="[favourites.includes(photo.id) ? 'selected' : '']"
-          >Favourite</button>
-        </div>
+  <div class="photos">
+    <div class="photo" v-for="photo in data" :set="photo = getPhoto(photo)" :id="photo.id" :key="photo.id">
+      <!-- Images with fallback -->
+      <img v-if="photo.large" :src="photo.large" :alt="photo.title" />
+      <img v-else="photo.medium" :src="photo.medium" :alt="photo.title" />
+      <div class="photo_content">
+        <h2>{{photo.title}}</h2>
+        <hr>
+        <button @click="addToFavourites(photo.id)" :class="[store.favourites.includes(photo.id) ? 'selected' : '']">Favourite</button>
       </div>
     </div>
-   
+  </div>
 </template>
+
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;0,900;1,300&display=swap');
@@ -74,7 +65,28 @@ const addToFavourites = (id) => {
     justify-content: center;
     margin: auto;
     padding-bottom: 250px;
+    animation: fadeIn 1s ease;
   }
+
+  @keyframes fadeIn {
+    from {opacity: 0}
+    to {opacity: 1}
+  }
+
+  @media (max-width: 768px){
+    .photos {
+        grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (max-width: 500px){
+    .photos {
+      grid-template-columns: 1fr;
+      max-width: 300px;
+   }
+
+  }
+
   
   .photo {
       position: relative;
@@ -109,6 +121,7 @@ const addToFavourites = (id) => {
   }
   
   .photo_content {
+    opacity: 0;
     color: white;
     position: absolute;
     top: 10px;

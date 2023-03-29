@@ -1,5 +1,12 @@
 <script setup>
 import { ref } from 'vue';
+import { store } from './StoreFavourites';
+
+defineProps({
+  data: {
+    type: Object
+  }
+})
 
 const open = ref(false);
 
@@ -14,17 +21,6 @@ function clearFavourites() {
 
 
 <template>
-    <!-- <div :class="['favourites', { show: open }]">
-      <button v-if="open" class="close" @click="toggleOpen">Close</button>
-      <button v-else class="open" @click="toggleOpen">Show Favourites</button>
-  
-      <button class="removeFavourites" @click="clearFavourites">Remove All Favourites</button>
-      <h2>Favourite photos</h2>
-      <div class="images">
-        <Image v-for="(photo, index) in pexelsData" :key="index" v-if="favourites.includes(`${photo.id}`)" :photo="photo" :alt="index" />
-      </div>
-    </div> -->
-
     <div :class="['favourites', { show: open }]">
         <button v-if="open" class="close" @click="toggleOpen">Close</button>
       <button v-else class="open" @click="toggleOpen">Show Favourites</button>
@@ -32,7 +28,10 @@ function clearFavourites() {
       <button class="removeFavourites" @click="clearFavourites">Remove All Favourites</button>
       <h2>Favourite photos</h2>
       <div class="images">
-        <!-- <Image v-for="(photo, index) in pexelsData" :key="index" v-if="favourites.includes(`${photo.id}`)" :photo="photo" :alt="index" /> -->
+        <div class="image" v-for="photo in data" :key="photo.id">
+            <img :src="photo.src.medium" v-if="store.favourites.includes(photo.id)"/>
+        </div>
+       
       </div>
     </div>
   </template>
@@ -94,6 +93,7 @@ function clearFavourites() {
 .removeFavourites {
     background: none;
     outline: none;
+    color: black;
     border: 1px solid black;
     border-radius: 25px;
     padding: 15px;
@@ -117,6 +117,7 @@ function clearFavourites() {
     box-shadow: 0 0 2px 5px black;
 }
 .open {
+    max-width: 150px;
     background: black;
     color: white;
     outline: none;
