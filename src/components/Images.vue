@@ -1,9 +1,11 @@
 <script setup>
-import { onMounted, onUpdated } from 'vue';
 
 defineProps({
-    data: Object
+  data: {
+    type: Object
+  }
 })
+
 
 const getPhoto = (photo) => {
     const limit = 15
@@ -28,12 +30,11 @@ const getPhoto = (photo) => {
         title: title
     }
 }
-
 </script>
 
 <template>
-    <div class="photos">
-         <div class="photo" v-for="photo in data.photos" :set="photo = getPhoto(photo)">
+    <div class="photos" >
+         <div class="photo" v-for="photo in data" :set="photo = getPhoto(photo)">
         <!-- Images with fallback -->
         <img v-if="photo.large" :src="photo.large" :alt="photo.title" />
         <img v-else="photo.medium" :src="photo.medium" :alt="photo.title" />
