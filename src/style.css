@@ -1,0 +1,42 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: roboto;
+  padding: 20px;
+}
+
+button {
+  background: none;
+  outline: none;
+  border: 1px solid white;
+  color: white;
+  padding: 10px;
+  width: 80%;
+  border-radius: 20px;
+  transition: 0.3s;
+}
+
+button:hover {
+  background: linear-gradient(300deg, white, lightgray);
+  color: grey;
+}
+
+button.selected {
+  background: linear-gradient(300deg, white, lightgray);
+  color: grey;
+  animation: button-animation 0.3s ease-in-out;
+  animation-play-state: paused;
+}
+
+
+@keyframes button-animation {
+  0% {transform: rotate(0deg)}
+  25% {transform: rotate(-5deg);}
+  50% {transform: rotate(5deg);}
+  75% {transform: rotate(-5deg);}
+  100% {transform: rotate(0deg);}
+}
