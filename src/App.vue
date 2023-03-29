@@ -1,7 +1,9 @@
 <script setup>
 import Images from './components/Images.vue'
-import { useFetch } from './components/Fetch.vue'
 import Loader from './components/Loader.vue'
+import Favourites from './components/Favourites.vue'
+import { useFetch } from './components/Fetch.vue'
+
 import { watchEffect, ref, toRaw  } from 'vue';
 
 let page = 0
@@ -24,7 +26,6 @@ window.addEventListener('scroll', function(){
     if(endOfPage){
       page++
       useFetch(page)
-      console.log(page)
     }
 })
 
@@ -56,7 +57,11 @@ const getPhoto = (photo) => {
 
 <template>
   <Loader v-if="!loaded"/>
-  <Images v-else-if="loaded" :data="data"/>
+  <div class="website" v-else-if="loaded">
+    <Images :data="data" />
+    <Favourites :data="data"/>
+  </div>
+ 
 </template>
 
 <style scoped>

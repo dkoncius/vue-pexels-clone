@@ -1,11 +1,11 @@
 <script setup>
+import { ref, toRaw } from 'vue';
 
 defineProps({
   data: {
     type: Object
   }
 })
-
 
 const getPhoto = (photo) => {
     const limit = 15
@@ -27,28 +27,44 @@ const getPhoto = (photo) => {
         medium: photo.src.medium,
         large: photo.src.large2x,
         splice: photo.url.slice(29, photo.url.length).split("-").join(" "),
-        title: title
+        title: title,
+        id: photo.id
     }
+}
+
+// Add to favourites
+let favourites = ref([])
+
+const addToFavourites = (id) => {
+  if(favourites.value.includes(id)){
+    favourites.value.splice(favourites.value.indexOf(id), 1)
+  } else {
+    favourites.value.push(id);
+  }
+  console.log(favourites.value)
 }
 </script>
 
 <template>
     <div class="photos" >
-         <div class="photo" v-for="photo in data" :set="photo = getPhoto(photo)">
+         <div class="photo" v-for="photo in data" :set="photo = getPhoto(photo)" :id="photo.id" :key="photo.id">
         <!-- Images with fallback -->
         <img v-if="photo.large" :src="photo.large" :alt="photo.title" />
         <img v-else="photo.medium" :src="photo.medium" :alt="photo.title" />
         <div class="photo_content">
           <h2>{{photo.title}}</h2>
           <hr>
-          <button>Favourite</button>
+          <button 
+          @click="addToFavourites(photo.id)"
+          :class="[favourites.includes(photo.id) ? 'selected' : '']"
+          >Favourite</button>
         </div>
       </div>
     </div>
    
 </template>
 
-<style scoped>
+<style>
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;0,900;1,300&display=swap');
 .photos {
     display: grid;
@@ -93,7 +109,6 @@ const getPhoto = (photo) => {
   }
   
   .photo_content {
-    opacity: 0;
     color: white;
     position: absolute;
     top: 10px;
