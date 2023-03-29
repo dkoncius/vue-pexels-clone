@@ -1,6 +1,7 @@
 <script setup>
 import Images from './components/Images.vue'
-import { useFetch} from './components/Fetch.vue'
+import { useFetch } from './components/Fetch.vue'
+import Loader from './components/Loader.vue'
 import { watchEffect, ref, toRaw  } from 'vue';
 
 let page = 0
@@ -54,7 +55,7 @@ const getPhoto = (photo) => {
 </script>
 
 <template>
-  <h1 v-if="!loaded">{{loaded}}</h1>
+  <Loader v-if="!loaded"/>
   <Images v-else-if="loaded" :data="data"/>
 </template>
 

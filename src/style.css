@@ -2,11 +2,15 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: roboto;
+  user-select: none;
+  cursor: url('arrow-pointer-solid.svg'), default;
 }
 
 body {
-  font-family: roboto;
+  background: linear-gradient(300deg, white, lightgray);
   padding: 20px;
+  min-height: 100vh;
 }
 
 button {
