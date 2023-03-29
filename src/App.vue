@@ -1,6 +1,6 @@
 <script setup>
 import Images from './components/Images.vue'
-import { useFetch} from './components/Fetch.js'
+import { useFetch} from './components/Fetch.vue'
 import { watchEffect, ref, toRaw  } from 'vue';
 
 let page = 0
@@ -9,8 +9,9 @@ const loaded = ref(false)
 
 watchEffect(() => {
   if (data.value) {
-    loaded.value = true
-   
+    setTimeout(() => {
+      loaded.value = true
+    }, 1000)
   }
 })
 
@@ -55,27 +56,6 @@ const getPhoto = (photo) => {
 <template>
   <h1 v-if="!loaded">{{loaded}}</h1>
   <Images v-else-if="loaded" :data="data"/>
-  <!-- <div class="photos">
-    <div class="photos" v-for="photo in data" :set="photo = getPhoto(photo)">
-      <img v-if="photo.large" :src="photo.large" :alt="photo.title" />
-      <img v-else="photo.medium" :src="photo.medium" :alt="photo.title" />
-      <div class="photo_content">
-        <h2>{{photo.title}}</h2>
-        <hr>
-        <button>Favourite</button>
-      </div>
-    </div> -->
-
-
-    <!-- <div class="photo" v-for="photo in data.value" :set="photo = getPhoto(photo)">
-   <img v-if="photo.large" :src="photo.large" :alt="photo.title" />
-   <img v-else="photo.medium" :src="photo.medium" :alt="photo.title" />
-   <div class="photo_content">
-     <h2>{{photo.title}}</h2>
-     <hr>
-     <button>Favourite</button>
-   </div>
- </div> -->
 </template>
 
 <style scoped>
