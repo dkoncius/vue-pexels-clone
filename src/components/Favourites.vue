@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue';
-import { store ,clearFavourites } from '../functions/storeFavourites';
+import { store, clearFavourites } from '../functions/storeFavourites';
 
 defineProps({
   data: {
@@ -19,7 +19,7 @@ function toggleOpen() {
 
 <template>
     <div :class="['favourites', { show: open }]">
-        <button v-if="open" class="close" @click="toggleOpen">Close</button>
+      <button v-if="open" class="close" @click="toggleOpen">Close</button>
       <button v-else class="open" @click="toggleOpen">Show Favourites</button>
   
       <button class="removeFavourites" @click="clearFavourites">Remove All Favourites</button>
@@ -123,7 +123,7 @@ function toggleOpen() {
     border-radius: 50px;
     line-height: 20px;
     position: absolute;
-    top: 50px;
+    bottom: 50px;
     left: 120%;
     transition: 0.3s;
 }

@@ -1,16 +1,17 @@
 <script setup>
-import { store } from '../functions/storeFavourites';
-import { getPhoto } from '../functions/getPhoto';
+    import { store } from '../functions/storeFavourites';
+    import { getPhoto } from '../functions/getPhoto';
 
-defineProps({
-  data: {
-    type: Object
-  }
-})
+    defineProps({
+        data: {
+          type: Object
+        }
+    })
+   
+    const addToFavourites = (id) => {
+      store.addToFavourites(id);
+    }
 
-const addToFavourites = (id) => {
-  store.addToFavourites(id);
-}
 </script>
 
 <template>
@@ -29,13 +30,13 @@ const addToFavourites = (id) => {
 </template>
 
 
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;0,900;1,300&display=swap');
+<style scoped>
 .photos {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     max-width: 1000px;
-    gap: 20px;
+    width: 90%;
+    gap: 30px;
     justify-content: center;
     margin: auto;
     padding-bottom: 250px;
@@ -64,7 +65,6 @@ const addToFavourites = (id) => {
   
   .photo {
       position: relative;
-      max-width: 300px;
       height: 200px;
       border-radius: 8px;
   }
@@ -131,6 +131,33 @@ const addToFavourites = (id) => {
   p {
     font-weight: 600;
     font-style: italic;
+  }
+
+
+  button {
+    background: none;
+    outline: none;
+    border: 1px solid white;
+    color: white;
+    padding: 10px;
+    width: 80%;
+    border-radius: 20px;
+    transition: 0.3s;
+  }
+  
+  button.selected {
+    background: linear-gradient(300deg, white, lightgray);
+    color: grey;
+    animation: button-animation 0.3s ease-in-out;
+  }
+  
+  
+  @keyframes button-animation {
+    0% {transform: rotate(0deg)}
+    25% {transform: rotate(-5deg);}
+    50% {transform: rotate(5deg);}
+    75% {transform: rotate(-5deg);}
+    100% {transform: rotate(0deg);}
   }
   
 </style>

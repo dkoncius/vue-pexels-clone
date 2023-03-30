@@ -1,13 +1,13 @@
-import { ref } from 'vue'
+import { ref, toRaw } from 'vue'
 
-const data = ref([])
+export function fetchPhotos(page, topic = 'birds') {
+  const data = ref([])
 
-export function useFetch(page) {
-  const API = 'https://api.pexels.com/v1/curated'
+  const API = 'https://api.pexels.com/v1/search?query='
   const API_KEY = '3GnrBc4JCTMSOPfXsli2LJek6wNKJ7AsUcczGlDjjVWscoW85aowv7x0'
 
   function doFetch() {
-    fetch(`${API}?page=${page}&per_page=15`, {
+    fetch(`${API}${topic}?page=${page}&per_page=3`, {
       headers: {
         Authorization: API_KEY
       }
@@ -15,6 +15,7 @@ export function useFetch(page) {
     .then((res) => res.json())
     .then((json) => {
       data.value.push(...json.photos)
+      console.log(toRaw(data.value))
     })
     .catch(err => console.log(err))
   }
@@ -23,4 +24,3 @@ export function useFetch(page) {
 
   return { data }
 }
-

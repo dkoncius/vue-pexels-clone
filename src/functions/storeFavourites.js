@@ -21,5 +21,5 @@ export const store = reactive({
 
 export const clearFavourites = () =>  {
     store.favourites = []
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(this.favourites))
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(store.favourites))
   }
