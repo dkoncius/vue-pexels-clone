@@ -3,7 +3,7 @@
 <template>
     <header>
         <nav>
-            <a href="#">
+            <a href="/">
                 <img src="../assets/pexels.ico" alt="pexels icon">
                 Pexels
             </a>

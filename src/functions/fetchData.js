@@ -7,7 +7,7 @@ export function fetchPhotos(page, topic = 'birds') {
   const API_KEY = '3GnrBc4JCTMSOPfXsli2LJek6wNKJ7AsUcczGlDjjVWscoW85aowv7x0'
 
   function doFetch() {
-    fetch(`${API}${topic}?page=${page}&per_page=3`, {
+    fetch(`${API}${topic}?page=${page}&per_page=60`, {
       headers: {
         Authorization: API_KEY
       }

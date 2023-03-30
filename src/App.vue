@@ -9,15 +9,14 @@ import { watchEffect, ref  } from 'vue';
 
 let page = 0
 const { data } = fetchPhotos(page)
-const loaded = ref(false)
 
-watchEffect(() => {
-  if (data.value) {
-    setTimeout(() => {
-      loaded.value = true
-    }, 1000)
-  }
-})
+// watchEffect(() => {
+//   if (data.value) {
+//     setTimeout(() => {
+//       loaded.value = true
+//     }, 1000)
+//   }
+// })
 
 // Ifinity scroll
 // window.addEventListener('scroll', function(){
@@ -31,12 +30,10 @@ watchEffect(() => {
 </script>
 
 <template>
-  <Loader v-if="!loaded"/>
-  <div class="website" v-else-if="loaded">
-    <Header/>
-    <Topics :data="data"/>
-    <router-view></router-view>
-  </div>
+  <Header/>
+  <Topics :data="data"/>
+  <router-view></router-view>
+
  
 </template>
 
@@ -59,7 +56,7 @@ watchEffect(() => {
 
 body {
   background: linear-gradient(300deg, white, lightgray);
-  min-height: 100vh;
+  min-height: 130vh;
 }
 
 </style>

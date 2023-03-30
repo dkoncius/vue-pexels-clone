@@ -1,17 +1,17 @@
 <script setup>
-    import { store } from '../functions/storeFavourites';
-    import { getPhoto } from '../functions/getPhoto';
-    import Favourites from './Favourites.vue';
+import { store } from '../functions/storeFavourites';
+import { getPhoto } from '../functions/getPhoto';
+import Favourites from './Favourites.vue';
 
-    defineProps({
-        data: {
-          type: Object
-        }
-    })
-   
-    const addToFavourites = (id) => {
-      store.addToFavourites(id);
+defineProps({
+    data: {
+      type: Object
     }
+})
+
+const addToFavourites = (id) => {
+  store.addToFavourites(id);
+}
 
 </script>
 
@@ -19,8 +19,8 @@
   <div class="photos">
     <div class="photo" v-for="photo in data" :set="photo = getPhoto(photo)" :id="photo.id" :key="photo.id">
       <!-- Images with fallback -->
-      <img v-if="photo.large" :src="photo.large" :alt="photo.title" />
-      <img v-else="photo.medium" :src="photo.medium" :alt="photo.title" />
+      <img v-if="photo.large" :src="photo.large" :alt="photo.title"/>
+      <img v-else="photo.medium" :src="photo.medium" :alt="photo.title"/>
       <div class="photo_content">
         <h2>{{photo.title}}</h2>
         <hr>
@@ -43,11 +43,6 @@
     margin: auto;
     padding-bottom: 250px;
     animation: fadeIn 1s ease;
-  }
-
-  @keyframes fadeIn {
-    from {opacity: 0}
-    to {opacity: 1}
   }
 
   @media (max-width: 768px){
@@ -81,6 +76,18 @@
     border-radius: 8px;
     opacity: 0;
     transition: 0.3s;
+    animation: fadeOut 1s;
+  }
+
+  @keyframes fadeOut {
+    from {
+      opacity: 1;
+      background: rgba(87, 86, 86, 0.833);
+    }
+    to {
+      opacity: 0;
+      background: rgba(0, 0, 0, 0.3);
+    }
   }
   
   .photo:hover::before,
