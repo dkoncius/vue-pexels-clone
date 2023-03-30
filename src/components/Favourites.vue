@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue';
-import { store } from './StoreFavourites';
+import { store ,clearFavourites } from '../functions/storeFavourites';
 
 defineProps({
   data: {
@@ -14,9 +14,6 @@ function toggleOpen() {
   open.value = !open.value;
 }
 
-function clearFavourites() {
-  favourites.value = [];
-}
 </script>
 
 
