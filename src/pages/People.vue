@@ -18,28 +18,6 @@ watchEffect(() => {
 </script>
 
 <template>
-<Transition name="bounce">
-    <div v-if="!loaded">
-        <Loader />
-    </div>
-    <div v-else-if="loaded">
-        <Photos :data="data" />
-    </div>
-</Transition>
+    <Loader v-if="!loaded"/>
+    <Photos v-else-if="loaded" :data="data" />
 </template>
-
-<style scoped>
-.bounce-enter-active {
-    animation: bounce-in 0.5s;
-  }
-
-  @keyframes bounce-in {
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 1;
-    }
-  }
-</style>
