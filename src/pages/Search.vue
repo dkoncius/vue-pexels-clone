@@ -1,7 +1,7 @@
 <script setup>
 import Photos from '../components/Photos.vue'
 import { fetchPhotos } from '../functions/fetchData';
-import { watchEffect, ref, Transition } from 'vue';
+import { watchEffect, ref  } from 'vue';
 import Loader from '../components/Loader.vue';
 import { searchValue } from '../functions/storeSearchValue';
 
@@ -16,6 +16,7 @@ watchEffect(() => {
         }, 300)
     }
 })
+
 </script>
 
 <template>

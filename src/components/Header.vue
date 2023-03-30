@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watchEffect } from 'vue';
+import { ref } from 'vue';
 import { searchValue } from '../functions/storeSearchValue';
 import {router} from '../functions/router.js'
 
