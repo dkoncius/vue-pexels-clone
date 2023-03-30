@@ -3,6 +3,7 @@ import People from '../pages/People.vue'
 import Nature from '../pages/Nature.vue'
 import Music from '../pages/Music.vue'
 import Books from '../pages/Books.vue'
+import Search from '../pages/Search.vue'
 
 export const router = createRouter({
   history: createWebHistory(),
@@ -11,6 +12,7 @@ export const router = createRouter({
     { path: '/people', component: People },
     { path: '/nature', component: Nature },
     { path: '/music', component: Music },
-    { path: '/books', component: Books }
+    { path: '/books', component: Books },
+    { path: '/search', component: Search }
   ]
 })

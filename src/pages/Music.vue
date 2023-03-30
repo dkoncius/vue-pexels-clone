@@ -19,10 +19,14 @@ watchEffect(() => {
 
 <template>
     <Transition name="bounce">
-        <Loader v-if="!loaded"/>
-        <Photos v-else-if="loaded" :data="data"/>
+        <div v-if="!loaded">
+            <Loader />
+        </div>
+        <div v-else-if="loaded">
+            <Photos :data="data" />
+        </div>
     </Transition>
-</template>
+    </template>
     
 <style scoped>
     .bounce-enter-active {

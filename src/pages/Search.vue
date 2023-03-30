@@ -3,9 +3,10 @@ import Photos from '../components/Photos.vue'
 import { fetchPhotos } from '../functions/fetchData';
 import { watchEffect, ref, Transition, Suspense } from 'vue';
 import Loader from '../components/Loader.vue';
+import { searchValue } from '../functions/storeSearchValue';
 
 let page = 0
-const { data } = fetchPhotos(page, 'nature')
+const { data } = fetchPhotos(page, 'people');
 const loaded = ref(false)
 
 watchEffect(() => {
@@ -18,22 +19,22 @@ watchEffect(() => {
 </script>
 
 <template>
-    <Transition name="bounce">
-        <div v-if="!loaded">
-            <Loader />
-        </div>
-        <div v-else-if="loaded">
-            <Photos :data="data" />
-        </div>
-    </Transition>
-    </template>
-    
-<style scoped>
-    .bounce-enter-active {
-    animation: bounce-in 0.5s;
-    }
+<Transition name="bounce">
+    <div v-if="!loaded">
+        <Loader />
+    </div>
+    <div v-else-if="loaded">
+        <Photos :data="data" />
+    </div>
+</Transition>
+</template>
 
-    @keyframes bounce-in {
+<style scoped>
+.bounce-enter-active {
+    animation: bounce-in 0.5s;
+  }
+
+  @keyframes bounce-in {
     from {
         opacity: 0;
     }
@@ -41,5 +42,5 @@ watchEffect(() => {
     to {
         opacity: 1;
     }
-    }
+  }
 </style>

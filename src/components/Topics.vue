@@ -1,17 +1,24 @@
 <script setup>
-import { reactive } from 'vue';
+import { ref } from 'vue';
 
-const links = reactive([
+const links = ref([
   { text: 'People', url: '/people', selected: true },
   { text: 'Nature', url: '/nature' },
   { text: 'Music', url: '/music' },
   { text: 'Books', url: '/books' }
 ]);
 
+
+const options = ref([
+  { text: 'Trending', value: 'trending'},
+  { text: 'New', value: 'new'},
+  { text: 'Favourites', value: 'Favourites'}
+]);
+
 function selectTopic(event, selectedLink) {
   event.preventDefault();
 
-  links.forEach(link => {
+  links.value.forEach(link => {
     if (link === selectedLink) {
       link.selected = true;
     } else {
@@ -30,9 +37,7 @@ function selectTopic(event, selectedLink) {
     <div class="filter">
         <h2>Free Stock Photos</h2>
         <select name="filter" id="fitler">
-            <option value="trending">Trending</option>
-            <option value="trending">New</option>
-            <option value="trending">Favourites</option>
+            <option v-for="option in options" :value="option.value">{{ option.text }}</option>
         </select>
     </div>
 </template>

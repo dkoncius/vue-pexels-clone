@@ -1,4 +1,14 @@
-<script></script>
+<script setup>
+import { ref } from 'vue';
+import { searchValue } from '../functions/storeSearchValue';
+
+const inputValue = ref('');
+
+function onEnterPressed() {
+  searchValue.search = inputValue.value
+  inputValue.value = '';
+}
+</script>
 
 <template>
     <header>
@@ -12,7 +22,7 @@
         <section>
             <h1>The best free stock photos, royalty free images & videos shared by creators.</h1>
             <div class="input_container">
-                <input type="text" placeholder="Search for free photos">
+                <input type="text" placeholder="Search for free photos" v-model="inputValue" @keyup.enter="onEnterPressed">
                 <button>
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </button>

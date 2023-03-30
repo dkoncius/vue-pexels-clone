@@ -5,7 +5,7 @@ import { watchEffect, ref, Transition, Suspense } from 'vue';
 import Loader from '../components/Loader.vue';
 
 let page = 0
-const { data } = fetchPhotos(page, 'music');
+const { data } = fetchPhotos(page, 'books');
 const loaded = ref(false)
 watchEffect(() => {
     if (data.value) {
@@ -20,8 +20,12 @@ watchEffect(() => {
 
 <template>
     <Transition name="bounce">
-        <Loader v-if="!loaded"/>
-        <Photos v-else-if="loaded" :data="data"/>
+        <div v-if="!loaded">
+            <Loader />
+        </div>
+        <div v-else-if="loaded">
+            <Photos :data="data" />
+        </div>
     </Transition>
 </template>
     

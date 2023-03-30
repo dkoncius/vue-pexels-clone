@@ -1,8 +1,8 @@
 export const getPhoto = (photo) => {
+  console.log(photo)
   const limit = 15;
   let title = '';
   let url = '';
-
   // If no alt text
   if (photo.alt) {
     title = photo.alt;
