@@ -36,7 +36,6 @@ watchEffect(() => {
     <Header/>
     <Topics :data="data"/>
     <router-view></router-view>
-    <Favourites :data="data"/>
   </div>
  
 </template>

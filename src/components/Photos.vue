@@ -1,6 +1,7 @@
 <script setup>
     import { store } from '../functions/storeFavourites';
     import { getPhoto } from '../functions/getPhoto';
+    import Favourites from './Favourites.vue';
 
     defineProps({
         data: {
@@ -27,6 +28,7 @@
       </div>
     </div>
   </div>
+  <Favourites :data="data"/>
 </template>
 
 
