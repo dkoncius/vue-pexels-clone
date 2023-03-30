@@ -18,10 +18,10 @@ function toggleOpen() {
 
 
 <template>
+    <button class="open" @click="toggleOpen">Show Favourites</button>
     <div :class="['favourites', { show: open }]">
-      <button v-if="open" class="close" @click="toggleOpen">Close</button>
-      <button v-else class="open" @click="toggleOpen">Show Favourites</button>
-  
+      <button class="close" @click="toggleOpen">Close</button>
+
       <button class="removeFavourites" @click="clearFavourites">Remove All Favourites</button>
       <h2>Favourite photos</h2>
       <div class="images">
@@ -122,9 +122,9 @@ function toggleOpen() {
     padding: 15px 30px;
     border-radius: 50px;
     line-height: 20px;
-    position: absolute;
+    position: fixed;
     bottom: 50px;
-    left: 120%;
+    right: 10vw;
     transition: 0.3s;
 }
 .open::before {

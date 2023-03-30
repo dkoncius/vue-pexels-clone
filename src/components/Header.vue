@@ -122,4 +122,10 @@ section .input_container button i {
     color: grey;
     font-size: 1.3em;
 }
+
+@media (max-width: 600px){
+    section h1 {
+        font-size: 1.8em;
+    }
+}
 </style>

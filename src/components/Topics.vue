@@ -8,12 +8,6 @@ const links = ref([
   { text: 'Books', url: '/books', selected: false }
 ]);
 
-const options = ref([
-  { text: 'Trending', value: 'trending'},
-  { text: 'New', value: 'new'},
-  { text: 'Favourites', value: 'Favourites'}
-]);
-
 // Get the stored index from local storage
 const storedIndex = localStorage.getItem('selectedLinkIndex');
 
@@ -50,9 +44,6 @@ function selectTopic(event, selectedLink) {
   </div>
   <div class="filter">
     <h2>Free Stock Photos</h2>
-    <select name="filter" id="fitler">
-      <option v-for="option in options" :value="option.value">{{ option.text }}</option>
-    </select>
   </div>
 </template>
 
@@ -83,27 +74,19 @@ function selectTopic(event, selectedLink) {
 .filter {
     max-width: 1000px;
     width: 90%;
-    height: 150px;
+    line-height: 150px;
     margin: auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
 }
 
-.filter select {
-    border: 1px solid grey;
-    color: rgba(0, 0, 0, 0.676);
-    border-radius: 4px;
-    padding: 10px;
-    outline: none;
-    font-size: 1.1em;
-    font-weight: bold;
-}
+@media (max-width: 600px){
+  .topics {
+    gap: 0px;
+  }
 
-.filter select {
-    -moz-appearance:none; /* Firefox */
-    -webkit-appearance:none; /* Safari and Chrome */
-    appearance:none;
+  .topics a {
+    padding: 15px;
+    font-size: 0.9em;
+  }
 }
 
 </style>
