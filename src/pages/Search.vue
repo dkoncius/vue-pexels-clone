@@ -1,12 +1,12 @@
 <script setup>
 import Photos from '../components/Photos.vue'
 import { fetchPhotos } from '../functions/fetchData';
-import { watchEffect, ref, Transition, Suspense } from 'vue';
+import { watchEffect, ref, Transition } from 'vue';
 import Loader from '../components/Loader.vue';
 import { searchValue } from '../functions/storeSearchValue';
 
 let page = 0
-const { data } = fetchPhotos(page, 'people');
+const { data } = fetchPhotos(page, searchValue.search);
 const loaded = ref(false)
 
 watchEffect(() => {

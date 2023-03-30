@@ -1,14 +1,19 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, watchEffect } from 'vue';
 import { searchValue } from '../functions/storeSearchValue';
+import {router} from '../functions/router.js'
+
 
 const inputValue = ref('');
 
 function onEnterPressed() {
   searchValue.search = inputValue.value
+  router.push('/search/' + searchValue.search);
   inputValue.value = '';
 }
+
 </script>
+
 
 <template>
     <header>

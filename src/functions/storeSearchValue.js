@@ -1,6 +1,6 @@
-import { reactive } from 'vue';
+import { ref } from 'vue';
 
-export const searchValue = reactive({
+export const searchValue = ref({
   search: '' || 'tigers'
 });
 

@@ -13,6 +13,6 @@ export const router = createRouter({
     { path: '/nature', component: Nature },
     { path: '/music', component: Music },
     { path: '/books', component: Books },
-    { path: '/search', component: Search }
+    { path: '/search/:term', component: Search }
   ]
 })

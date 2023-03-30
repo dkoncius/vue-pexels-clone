@@ -3,11 +3,10 @@ import { ref } from 'vue';
 
 const links = ref([
   { text: 'People', url: '/people', selected: true },
-  { text: 'Nature', url: '/nature' },
-  { text: 'Music', url: '/music' },
-  { text: 'Books', url: '/books' }
+  { text: 'Nature', url: '/nature', selected: false },
+  { text: 'Music', url: '/music', selected: false },
+  { text: 'Books', url: '/books', selected: false }
 ]);
-
 
 const options = ref([
   { text: 'Trending', value: 'trending'},
@@ -15,12 +14,27 @@ const options = ref([
   { text: 'Favourites', value: 'Favourites'}
 ]);
 
+// Get the stored index from local storage
+const storedIndex = localStorage.getItem('selectedLinkIndex');
+
+// If a stored index exists, set the selected link based on the index
+if (storedIndex !== null) {
+  const index = parseInt(storedIndex);
+  if (!isNaN(index)) {
+    links.value.forEach((link, i) => {
+      link.selected = i === index;
+    });
+  }
+}
+
 function selectTopic(event, selectedLink) {
   event.preventDefault();
 
-  links.value.forEach(link => {
+  links.value.forEach((link, index) => {
     if (link === selectedLink) {
       link.selected = true;
+      // Store the selected index in local storage
+      localStorage.setItem('selectedLinkIndex', index.toString());
     } else {
       link.selected = false;
     }
@@ -29,18 +43,19 @@ function selectTopic(event, selectedLink) {
 </script>
 
 <template>
-    <div class="topics">
-        <router-link v-for="(link, index) in links" :key="index" :to="link.url" :class="{ selected: link.selected }" @click="selectTopic($event, link)">
-            {{ link.text }}
-          </router-link>
-    </div>
-    <div class="filter">
-        <h2>Free Stock Photos</h2>
-        <select name="filter" id="fitler">
-            <option v-for="option in options" :value="option.value">{{ option.text }}</option>
-        </select>
-    </div>
+  <div class="topics">
+    <router-link v-for="(link, index) in links" :key="index" :to="link.url" :class="{ selected: link.selected }" @click="selectTopic($event, link)">
+      {{ link.text }}
+    </router-link>
+  </div>
+  <div class="filter">
+    <h2>Free Stock Photos</h2>
+    <select name="filter" id="fitler">
+      <option v-for="option in options" :value="option.value">{{ option.text }}</option>
+    </select>
+  </div>
 </template>
+
 
 <style scoped>
 .topics {
