@@ -1,6 +1,6 @@
 import { ref } from 'vue'
 
-export function fetchPhotos(page, topic) {
+export function fetchPhotos(page, topic = 'people') {
   const data = ref([])
 
   const API = 'https://api.pexels.com/v1/search?query='
