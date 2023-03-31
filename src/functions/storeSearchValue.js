@@ -4,4 +4,3 @@ export const searchValue = ref({
   search: '' || 'tigers'
 });
 
-

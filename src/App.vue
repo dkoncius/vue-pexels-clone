@@ -1,22 +1,11 @@
 <script setup>
-import Loader from './components/Loader.vue'
-import Favourites from './components/Favourites.vue'
 import Header from './components/Header.vue'
 import Topics from './components/Topics.vue'
 import { fetchPhotos } from './functions/fetchData.js'
 
-import { watchEffect, ref  } from 'vue';
 
 let page = 0
 const { data } = fetchPhotos(page)
-
-// watchEffect(() => {
-//   if (data.value) {
-//     setTimeout(() => {
-//       loaded.value = true
-//     }, 1000)
-//   }
-// })
 
 // Ifinity scroll
 // window.addEventListener('scroll', function(){
