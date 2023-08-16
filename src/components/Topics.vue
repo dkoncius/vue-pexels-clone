@@ -1,51 +1,39 @@
 <script setup>
-import { ref } from 'vue';
+import { computed } from 'vue';
+import { useRoute } from 'vue-router';
 
-const links = ref([
-  { text: 'People', url: '/people', selected: true },
-  { text: 'Nature', url: '/nature', selected: false },
-  { text: 'Music', url: '/music', selected: false },
-  { text: 'Books', url: '/books', selected: false }
-]);
+const links = [
+  { text: 'People', url: '/people' },
+  { text: 'Nature', url: '/nature' },
+  { text: 'Music', url: '/music' },
+  { text: 'Books', url: '/books' }
+];
 
-// Get the stored index from local storage
-const storedIndex = localStorage.getItem('selectedLinkIndex');
+const route = useRoute();
 
-// If a stored index exists, set the selected link based on the index
-if (storedIndex !== null) {
-  const index = parseInt(storedIndex);
-  if (!isNaN(index)) {
-    links.value.forEach((link, i) => {
-      link.selected = i === index;
-    });
-  }
-}
+const selectedTopic = computed(() => {
+  // Get the term from the route params or the URL path
+  const term = route.params.term || route.path.split('/')[1];
 
-function selectTopic(event, selectedLink) {
-  event.preventDefault();
+  // Capitalize the first letter and return the full topic text
+  return term.charAt(0).toUpperCase() + term.slice(1);
+});
 
-  links.value.forEach((link, index) => {
-    if (link === selectedLink) {
-      link.selected = true;
-      // Store the selected index in local storage
-      localStorage.setItem('selectedLinkIndex', index.toString());
-    } else {
-      link.selected = false;
-    }
-  });
-}
+const isSelected = link => link.url.split('/')[1] === (route.params.term || route.path.split('/')[1]);
 </script>
 
 <template>
   <div class="topics">
-    <router-link v-for="(link, index) in links" :key="index" :to="link.url" :class="{ selected: link.selected }" @click="selectTopic($event, link)">
+    <router-link v-for="(link, index) in links" :key="index" :to="link.url" :class="{ selected: isSelected(link) }">
       {{ link.text }}
     </router-link>
   </div>
   <div class="filter">
-    <h2>Free Stock Photos</h2>
+    <h2>{{ selectedTopic }} Stock Photos</h2>
   </div>
 </template>
+
+
 
 
 <style scoped>

@@ -1,26 +1,28 @@
 <script setup>
-import Photos from '../components/Photos.vue'
+import { watchEffect, ref } from 'vue';
+import { useRoute } from 'vue-router';
+import Photos from '../components/Photos.vue';
 import { fetchPhotos } from '../functions/fetchData';
-import { watchEffect, ref  } from 'vue';
 import Loader from '../components/Loader.vue';
-import { searchValue } from '../functions/storeSearchValue';
 
-let page = 0
-const { data } = fetchPhotos(page, searchValue.search);
-const loaded = ref(false)
+const route = useRoute();
+const term = ref(route.params.term);
+const page = 0;
+let { data } = fetchPhotos(page, term.value);
+const loaded = ref(false);
 
 watchEffect(() => {
-    if (data.value) {
-        setTimeout(() => {
-            loaded.value = true
-        }, 300)
-    }
-})
-
+  term.value = route.params.term;
+  loaded.value = false;
+  // Reinitialize the data by calling fetchPhotos again
+  ({ data } = fetchPhotos(page, term.value));
+  setTimeout(() => {
+    loaded.value = true;
+  }, 300);
+});
 </script>
 
 <template>
-    <Loader v-if="!loaded"/>
-    <Photos v-else-if="loaded" :data="data" />
+  <Loader v-if="!loaded"/>
+  <Photos v-else-if="loaded" :data="data" />
 </template>
-

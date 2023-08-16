@@ -1,13 +1,14 @@
-import { ref } from 'vue'
+import { ref, watchEffect } from 'vue'
 
 export function fetchPhotos(page, topic = 'people') {
   const data = ref([])
 
   const API = 'https://api.pexels.com/v1/search?query='
-  const API_KEY = '3GnrBc4JCTMSOPfXsli2LJek6wNKJ7AsUcczGlDjjVWscoW85aowv7x0';
+  const API_KEY = import.meta.env.VITE_API_KEY;
 
-  function doFetch() {
-    fetch(`${API}${topic}?page=${page}&per_page=60`, {
+  const doFetch = () => {
+    data.value = [] // Clear existing data
+    fetch(`${API}${topic}&page=${page}&per_page=60`, {
       headers: {
         Authorization: API_KEY
       }
@@ -19,7 +20,9 @@ export function fetchPhotos(page, topic = 'people') {
     .catch(err => console.log(err))
   }
 
-  doFetch()
+  watchEffect(() => {
+    doFetch()
+  }, [page, topic])
 
   return { data }
 }

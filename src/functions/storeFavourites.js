@@ -1,8 +1,19 @@
 import { reactive } from 'vue';
 
-// Get data from local storage
 const STORAGE_KEY = 'favourites';
-const storedFavourites = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+
+let storedFavourites;
+
+try {
+  storedFavourites = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+  if (!Array.isArray(storedFavourites)) {
+    throw new Error("Stored favourites is not an array");
+  }
+} catch (error) {
+  console.error('Error parsing stored favourites:', error);
+  storedFavourites = [];
+  localStorage.removeItem(STORAGE_KEY);
+}
 
 export const store = reactive({
   favourites: storedFavourites,
@@ -12,14 +23,11 @@ export const store = reactive({
     } else {
       this.favourites.push(id);
     }
-
-    // Add data to local storage
     localStorage.setItem(STORAGE_KEY, JSON.stringify(this.favourites));
   }
 });
 
-
-export const clearFavourites = () =>  {
-    store.favourites = []
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(store.favourites))
-  }
+export const clearFavourites = () => {
+  store.favourites = [];
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(store.favourites));
+}
