@@ -34,8 +34,6 @@ const isSelected = link => link.url.split('/')[1] === (route.params.term || rout
 </template>
 
 
-
-
 <style scoped>
 .topics {
     display: flex;
